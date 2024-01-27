@@ -1,0 +1,52 @@
+management:
+  server:
+    port: 8192
+
+spring:
+
+  server:
+    protocol: http
+    url: localhost:8080
+
+  data:
+    jpa.repositories.enabled: true
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        temp.use_jdbc_metadata_defaults: false
+        use-new-id-generator-mappings: false
+        enable_lazy_load_no_trans: true
+        default_schema: public
+        ddl-auto: update
+        format_sql: false
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+  flyway:
+    url: jdbc:h2:E:/data/sampledata
+    user: sa
+    # password: admin
+    enabled: true
+    locations: classpath:/db/migration
+    schemas: public
+
+  datasource:
+    url: jdbc:h2:E:/data/sampledata
+    driverClassName: org.h2.Driver
+    username: sa
+    # password: admin
+    initialize: true
+
+logging:
+  level:
+    com.bc.ecommerce: DEBUG
+    org.springframework.web: DEBUG
+
+server:
+  tomcat:
+    max-threads: ${TOMCAT_MAX_THREADS:50}

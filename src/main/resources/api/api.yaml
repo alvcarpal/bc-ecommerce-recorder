@@ -1,0 +1,284 @@
+openapi: 3.0.1
+info:
+  title: Ecommerce recorder API
+  description: The API for historical retail prices records the price of products during time intervals specified by the start and end dates. Each product has a priority to be applied.
+  contact:
+    name: Álvaro Carmona
+    url: https://www.linkedin.com/in/%C3%A1lvaro-carmona-palomares/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: "2.0"
+servers:
+  - url: http://localhost:8080
+    description: Local server url
+tags:
+  - name: Ecommerce
+paths:
+
+  /price:
+    get:
+      tags:
+        - Ecommerce
+      summary: Obtains the price to be applied for a product during the specified time interval.
+      description: "Obtains the retail price of the product (product_id) for the interval that matches 
+      the provided execution date. In case multiple applicable prices are found, the one with the highest 
+      numerical priority should be applied."
+      operationId: getPrice
+      parameters:
+        - $ref: '#/components/parameters/X-B3-TraceId'
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Query-Product-Id'
+        - $ref: '#/components/parameters/Query-Price-List'
+        - $ref: '#/components/parameters/Query-Issue-Date'
+      responses:
+        200:
+          $ref: '#/components/responses/getPriceResponse'
+        204:
+          $ref: '#/components/responses/response204'
+        400:
+          $ref: '#/components/responses/error400'
+        401:
+          $ref: '#/components/responses/error401'
+        403:
+          $ref: '#/components/responses/error403'
+        404:
+          $ref: '#/components/responses/error404'
+        405:
+          $ref: '#/components/responses/error405'
+        500:
+          $ref: '#/components/responses/error500'
+        503:
+          $ref: '#/components/responses/error503'
+        504:
+          $ref: '#/components/responses/error504'
+
+components:
+
+  schemas:
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 8
+          maxLength: 8
+          example: '01400001'
+          description: 'A 8-digit machine readable application error code. Not to be confused with the HTTP status code in the response.'
+        message:
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: 'Field [%s] is missing'
+          description: 'A long, human readable description of the error.'
+        level:
+          type: string
+          minLength: 1
+          maxLength: 50
+          example: 'Fatal'
+          description: 'Severity classification of the error.'
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: 'Header field missing'
+          description: 'Trace of the exception.'
+
+    Price:
+      type: object
+      description: The 'Ecommerce product price information'
+      additionalProperties: false
+      properties:
+        productId:
+          type: string
+          description: 'The product identifier'
+          example: '35455'
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]*$'
+        priceList:
+          type: integer
+          format: int32
+          description: 'The price list allows grouping different products to be applied with their specified intervals in separate lists, enabling the creation of distinct campaigns.'
+          minimum: 0
+          maximum: 999999999
+          example: 5
+        price:
+          type: number
+          format: double
+          multipleOf: 0.0001
+          description: "The retail price to apply."
+          example: 35.50
+        startDate:
+          $ref: '#/components/schemas/IssueDate'
+        endDate:
+          $ref: '#/components/schemas/IssueDate'
+
+    ProductId:
+      type: string
+      description: 'The product identifier'
+      example: '35455'
+      maxLength: 255
+      pattern: '^[a-zA-Z0-9_-]*$'
+
+    PriceList:
+      type: integer
+      format: int32
+      description: 'The price list allows grouping different products to be applied with their specified intervals in separate lists, enabling the creation of distinct campaigns.'
+      minimum: 0
+      maximum: 999999999
+      example: 5
+
+    IssueDate:
+      type: string
+      format: date-time
+      description: 'Timestamp in ISO 8601 format.'
+      example: '2022-12-14T09:31:26.075Z'
+
+  parameters:
+
+    X-B3-TraceId:
+      in: header
+      name: X-B3-TraceId
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 50
+      description: 'The TraceId indicates the overall ID of the trace. Every span in a trace shares this ID. The X-B3-TraceId header is encoded as 32 or 16 lower-hex characters. For example, a 128-bit TraceId header might look like 463ac35c9f6413ad48485a3953bb6124.'
+
+    #This must be defined in order to allow the proper code generation
+    Authorization:
+      name: Authorization
+      in: header
+      required: true
+      schema:
+        type: string
+      description: 'The Authorization request header contains the credentials to authenticate a user to a server'
+
+    #This must be defined in order to allow the proper code generation
+    Accept:
+      name: Accept
+      in: header
+      required: true
+      schema:
+        type: string
+      description: 'The header accept indicates the content type the client is able to process. Its value is a MIME type.'
+
+    Query-Product-Id:
+      name: product_id
+      in: query
+      description: 'The product identifier'
+      required: true
+      example: '35455'
+      schema:
+        $ref: '#/components/schemas/ProductId'
+
+    Query-Price-List:
+      name: price_list
+      in: query
+      description: 'The price list allows grouping different products to be applied with their specified intervals in separate lists, enabling the creation of distinct campaigns.'
+      required: true
+      example: 5
+      schema:
+        $ref: '#/components/schemas/PriceList'
+
+    Query-Issue-Date:
+      name: issue_date
+      in: query
+      description: 'The execution date indicates that we should find a retail price whose interval includes the provided issue_date.'
+      required: true
+      schema:
+        $ref: '#/components/schemas/IssueDate'
+
+  responses:
+
+    error400:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error404:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error405:
+      description: Method not allowed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error406:
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error415:
+      description: Unsupported media type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error500:
+      description: Unexpected errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error503:
+      description: Service is unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    error504:
+      description: Gateway timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    response204:
+      description: No Content
+
+    getPriceResponse:
+      description: Price information that is retrieved
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Price'
+
+  # 1) Define the security scheme type (HTTP bearer)
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
+# 2) Apply the security globally to all albums
+security:
+  - bearerAuth: []         # use the same name as above

@@ -1,0 +1,48 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+/src/main/java/com/bc/ecommerce/infrastructure/rest/spring/dto/
+/src/main/java/com/bc/ecommerce/infrastructure/rest/spring/spec/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+/.openapi-generator/api.yaml-default.sha256
+/.idea/checkstyle-idea.xml
+/.idea/encodings.xml
+/.openapi-generator/FILES
+/.idea/misc.xml
+/.idea/vcs.xml
+/.openapi-generator/VERSION
+/.idea/workspace.xml
