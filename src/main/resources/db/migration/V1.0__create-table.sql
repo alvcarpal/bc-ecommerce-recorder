@@ -1,7 +1,7 @@
 -- Prices table creation
 CREATE TABLE IF NOT EXISTS prices (
 	id                         UUID PRIMARY KEY,
-    bran_id                    VARCHAR(255) NOT NULL,
+    brand_id                    VARCHAR(255) NOT NULL,
     product_id                 VARCHAR(255) NOT NULL,
     price_list                 INT NOT NULL,
     start_date                 TIMESTAMP WITHOUT TIME ZONE NOT NULL,

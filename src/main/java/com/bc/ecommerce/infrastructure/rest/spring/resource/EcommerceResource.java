@@ -40,11 +40,11 @@ public class EcommerceResource implements PriceApi {
             @ApiParam(required = true) @RequestHeader(value = "X-B3-TraceId") String xB3TraceId,
             @ApiParam(required = true) @RequestHeader(value = "Authorization") String authorization,
             @ApiParam(required = true) @RequestParam("product_id") String productId,
-            @ApiParam(required = true) @RequestParam("price_list") Integer priceList,
+            @ApiParam(required = true) @RequestParam("brand_id") String brandId,
             @ApiParam(required = true) @RequestParam("issue_date") OffsetDateTime issueDate
     ) {
-        log.info("Price request start: product id {} , price list {} , issue date {}.", productId, priceList, issueDate.toString());
-        PricesCriteria criteria = PricesCriteria.builder().priceList(priceList).productId(productId).issueDate(issueDate).build();
+        log.info("Price request start: product id {} , brand id {} , issue date {}.", productId, brandId, issueDate.toString());
+        PricesCriteria criteria = PricesCriteria.builder().productId(productId).issueDate(issueDate).brandId(brandId).build();
         var response = mapper.map(service.search(criteria));
 
         if (response != null && response.getProductId() != null) {

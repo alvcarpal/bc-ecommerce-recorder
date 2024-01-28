@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -15,8 +16,16 @@ import javax.sql.DataSource;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Properties;
 
+/**
+ * Datasource configuration class.
+ * In com.bc.ecommerce.boot.spring.config package.
+ *
+ * @author Álvaro Carmona
+ * @since 28/01/2024
+ */
 @Configuration
 @EnableJpaRepositories(basePackages = "com.bc.ecommerce.infrastructure.db.springdata.repository")
 @ConfigurationProperties("spring.datasource")
@@ -52,6 +61,16 @@ public class PersistenceDataConfig {
     Properties connectionProperties = new Properties();
     dataSource.setConnectionProperties(connectionProperties);
     return dataSource;
+  }
+
+  /**
+   * Auditor provider.
+   *
+   * @return a {@link String} auditorAware.
+   */
+  @Bean
+  AuditorAware<String> auditorProvider() {
+    return () -> Optional.of("bc-ecommerce-recorder");
   }
 
 }

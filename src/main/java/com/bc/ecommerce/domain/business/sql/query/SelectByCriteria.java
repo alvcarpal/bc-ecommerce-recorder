@@ -29,7 +29,7 @@ public class SelectByCriteria extends BaseQuery<PricesCriteria> {
     return sqlBuilder.select(new PricesDbo(), PricesTable.NAME)
             .where(sqlBuilder.and(
                  productIdComposer.apply(criteria.getProductId()),
-                 priceListComposer.apply(criteria.getPriceList()),
+                 brandIdComposer.apply(criteria.getBrandId()),
                  dateIntervalComposer.apply(criteria.getIssueDate())
             )).sortBy(PricesTable.PRIORITY.getName())
             .limit();

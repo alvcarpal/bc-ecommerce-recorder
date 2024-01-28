@@ -29,7 +29,7 @@ paths:
         - $ref: '#/components/parameters/X-B3-TraceId'
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/Query-Product-Id'
-        - $ref: '#/components/parameters/Query-Price-List'
+        - $ref: '#/components/parameters/Query-Brand-Id'
         - $ref: '#/components/parameters/Query-Issue-Date'
       responses:
         200:
@@ -103,6 +103,12 @@ components:
           minimum: 0
           maximum: 999999999
           example: 5
+        brandId:
+          type: string
+          description: 'The brand identifier. Ex ZARA 1'
+          example: '1'
+          maxLength: 255
+          pattern: '^[a-zA-Z0-9_-]*$'
         price:
           type: number
           format: double
@@ -121,13 +127,12 @@ components:
       maxLength: 255
       pattern: '^[a-zA-Z0-9_-]*$'
 
-    PriceList:
-      type: integer
-      format: int32
-      description: 'The price list allows grouping different products to be applied with their specified intervals in separate lists, enabling the creation of distinct campaigns.'
-      minimum: 0
-      maximum: 999999999
-      example: 5
+    BrandId:
+      type: string
+      description: 'The brand identifier. Ex ZARA 1'
+      example: '1'
+      maxLength: 255
+      pattern: '^[a-zA-Z0-9_-]*$'
 
     IssueDate:
       type: string
@@ -174,14 +179,14 @@ components:
       schema:
         $ref: '#/components/schemas/ProductId'
 
-    Query-Price-List:
-      name: price_list
+    Query-Brand-Id:
+      name: brand_id
       in: query
-      description: 'The price list allows grouping different products to be applied with their specified intervals in separate lists, enabling the creation of distinct campaigns.'
+      description: 'The brand identifier. Ex ZARA 1'
       required: true
-      example: 5
+      example: '1'
       schema:
-        $ref: '#/components/schemas/PriceList'
+        $ref: '#/components/schemas/BrandId'
 
     Query-Issue-Date:
       name: issue_date

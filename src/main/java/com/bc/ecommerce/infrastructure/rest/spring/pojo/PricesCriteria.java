@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Data
 @Builder
 public class PricesCriteria {
-  private Integer priceList;
   private String productId;
+  private String brandId;
   private OffsetDateTime issueDate;
 }

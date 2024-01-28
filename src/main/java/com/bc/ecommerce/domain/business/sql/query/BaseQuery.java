@@ -1,7 +1,7 @@
 package com.bc.ecommerce.domain.business.sql.query;
 
+import com.bc.ecommerce.domain.business.sql.filter.BrandIdFilter;
 import com.bc.ecommerce.domain.business.sql.filter.DateIntervalFilter;
-import com.bc.ecommerce.domain.business.sql.filter.PriceListFilter;
 import com.bc.ecommerce.domain.business.sql.filter.ProductIdFilter;
 import com.bc.ecommerce.domain.business.sql.filter.SqlComposer;
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesTable;
@@ -21,7 +21,7 @@ abstract class BaseQuery<T> implements SqlBuilder<T> {
 
   protected final SqlComposer<OffsetDateTime> dateIntervalComposer;
   protected final SqlComposer<String> productIdComposer;
-  protected final SqlComposer<Integer> priceListComposer;
+  protected final SqlComposer<String> brandIdComposer;
 
   BaseQuery() {
     sqlBuilder = new DefaultCustomQueryBuilder();
@@ -29,7 +29,7 @@ abstract class BaseQuery<T> implements SqlBuilder<T> {
 
     this.dateIntervalComposer = new DateIntervalFilter(sqlBuilder);
     this.productIdComposer = new ProductIdFilter(sqlBuilder);
-    this.priceListComposer = new PriceListFilter(sqlBuilder);
+    this.brandIdComposer = new BrandIdFilter(sqlBuilder);
   }
 
 }
