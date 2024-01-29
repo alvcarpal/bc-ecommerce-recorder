@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * PricesDboMapper interface. Mapstruct prices mapper to domain.
- * In com.bc.album.infrastructure.db.springdata.mapper.
+ * In com.bc.ecommerce.infrastructure.db.springdata.mapper.
  *
  * @author Álvaro Carmona
  * @since 27/01/2024

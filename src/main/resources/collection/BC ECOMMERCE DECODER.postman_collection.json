@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "34fb800b-5b75-43f4-a286-c4169d0e05d3",
+		"name": "BC ECOMMERCE DECODER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11026635"
+	},
+	"item": [
+		{
+			"name": "Retrieve Price Data",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "X-B3-TraceId",
+						"value": "1"
+					},
+					{
+						"key": "Authorization",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/price?product_id=35455&brand_id=1&issue_date=2020-06-14T09:31:26.075Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"price"
+					],
+					"query": [
+						{
+							"key": "product_id",
+							"value": "35455"
+						},
+						{
+							"key": "brand_id",
+							"value": "1"
+						},
+						{
+							"key": "issue_date",
+							"value": "2020-06-14T09:31:26.075Z"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
