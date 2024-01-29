@@ -284,6 +284,6 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
-# 2) Apply the security globally to all albums
+# 2) Apply the security globally to all products
 security:
   - bearerAuth: []         # use the same name as above

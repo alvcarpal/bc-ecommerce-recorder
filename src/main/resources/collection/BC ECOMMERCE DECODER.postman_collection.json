@@ -30,14 +30,28 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/albums",
+					"raw": "http://localhost:8080/price?product_id=35455&brand_id=1&issue_date=2020-06-14T09:31:26.075Z",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"albums"
+						"price"
+					],
+					"query": [
+						{
+							"key": "product_id",
+							"value": "35455"
+						},
+						{
+							"key": "brand_id",
+							"value": "1"
+						},
+						{
+							"key": "issue_date",
+							"value": "2020-06-14T09:31:26.075Z"
+						}
 					]
 				}
 			},

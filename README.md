@@ -144,10 +144,10 @@ Image: Data model
 
 The first step will be to analyze the execution plan of our query. Since we only have one table, the most favorable scenario will be when an INDEX_SCAN is performed, avoiding the need to traverse the entire table (SEQ_SCAN).
 
-    EXPLAIN (FORMAT JSON) SELECT p.id, p.bran_id, p.product_id, p.price_list, p.start_date, p.end_date, p.price, p.currency, p.priority
+    EXPLAIN (FORMAT JSON) SELECT p.id, p.brand_id, p.product_id, p.price_list, p.start_date, p.end_date, p.price, p.currency, p.priority
     FROM public.prices p
     WHERE p.product_id = '1'
-    AND p.bran_id = '1'
+    AND p.brand_id = '1'
     AND ('2020-06-14T09:31:26.075Z' BETWEEN p.start_date AND p.end_date)
     ORDER BY priority DESC
     LIMIT 1;
