@@ -42,7 +42,7 @@ public class PricesUseCaseTest extends UnitTest {
 
     @Test
     public void testSearch() {
-        when(repository.pricesProjection(any(CustomQuery.class))).thenReturn(expectedPrices);
+        when(repository.pricesProjection(any(PricesCriteria.class))).thenReturn(expectedPrices);
         Prices result = pricesUseCase.search(pricesCriteria);
         assertEquals(expectedPrices, result);
     }

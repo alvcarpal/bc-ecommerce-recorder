@@ -1,6 +1,6 @@
-package com.bc.ecommerce.domain.business.sql;
+package com.bc.ecommerce.infrastructure.db.springdata.sql;
 
-import com.bc.ecommerce.domain.business.sql.query.SelectByCriteria;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.query.SelectByCriteria;
 import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
 import com.bc.ecommerce.infrastructure.rest.spring.pojo.PricesCriteria;
 

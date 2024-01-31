@@ -1,7 +1,7 @@
 package com.bc.ecommerce.domain.port.out;
 
 import com.bc.ecommerce.domain.operational.Prices;
-import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
+import com.bc.ecommerce.infrastructure.rest.spring.pojo.PricesCriteria;
 
 /**
  * PricesRepository class.
@@ -14,9 +14,9 @@ public interface PricesRepository {
 
   /**
    * Builds and retrieves the price pvp detail for the given criteria.
-   * @param customQuery The query to be executed by the repository.
+   * @param criteria The criteria to be applied.
    * @return The price pvp to be applied.
    */
-  Prices pricesProjection(CustomQuery customQuery);
+  Prices pricesProjection(PricesCriteria criteria);
 
 }

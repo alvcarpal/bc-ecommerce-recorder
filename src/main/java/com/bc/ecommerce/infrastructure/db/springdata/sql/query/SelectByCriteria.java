@@ -1,4 +1,4 @@
-package com.bc.ecommerce.domain.business.sql.query;
+package com.bc.ecommerce.infrastructure.db.springdata.sql.query;
 
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesDbo;
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesTable;

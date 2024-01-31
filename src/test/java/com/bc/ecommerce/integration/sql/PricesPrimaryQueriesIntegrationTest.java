@@ -1,7 +1,7 @@
 package com.bc.ecommerce.integration.sql;
 
 import com.bc.ecommerce.boot.spring.config.EcommerceRecorderSpringBootService;
-import com.bc.ecommerce.domain.business.sql.QueryBuilder;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.QueryBuilder;
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesDbo;
 import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
 import com.bc.ecommerce.infrastructure.db.springdata.repository.DefaultPricesRepository;

@@ -1,4 +1,4 @@
-package com.bc.ecommerce.domain.business.sql.filter;
+package com.bc.ecommerce.infrastructure.db.springdata.sql.filter;
 
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesTable;
 import com.bc.ecommerce.infrastructure.db.springdata.query.DefaultCustomQueryBuilder;

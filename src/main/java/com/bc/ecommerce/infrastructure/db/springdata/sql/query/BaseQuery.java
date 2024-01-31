@@ -1,9 +1,9 @@
-package com.bc.ecommerce.domain.business.sql.query;
+package com.bc.ecommerce.infrastructure.db.springdata.sql.query;
 
-import com.bc.ecommerce.domain.business.sql.filter.BrandIdFilter;
-import com.bc.ecommerce.domain.business.sql.filter.DateIntervalFilter;
-import com.bc.ecommerce.domain.business.sql.filter.ProductIdFilter;
-import com.bc.ecommerce.domain.business.sql.filter.SqlComposer;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.filter.BrandIdFilter;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.filter.DateIntervalFilter;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.filter.ProductIdFilter;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.filter.SqlComposer;
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesTable;
 import com.bc.ecommerce.infrastructure.db.springdata.query.DefaultCustomQueryBuilder;
 import java.time.OffsetDateTime;
