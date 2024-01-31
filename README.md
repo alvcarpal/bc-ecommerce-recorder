@@ -183,7 +183,7 @@ To address the design of queries, the decision is made to avoid using JPA/Hibern
 Therefore, the choice is made to create more optimized native queries, which can initially be implemented in a custom interface as follows:
 
     @Repository
-    public interface JpaPricesRepository extends JpaRepository<Prices, Long> {
+    public interface JpaPricesRepository extends JpaRepository<PricesDbo, String> {
 
         @Query(value = "SELECT p.id, p.brand_id, p.product_id, p.price_list, p.start_date, p.end_date, p.price, p.currency, p.priority "
                      + "FROM public.prices p "
