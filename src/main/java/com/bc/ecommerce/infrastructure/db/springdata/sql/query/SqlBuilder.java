@@ -4,7 +4,7 @@ import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
 
 /**
  * Sql builder interface.
- * In com.bc.ecommerce.domain.business.sql.query package.
+ * In com.bc.ecommerce.infrastructure.db.springdata.sql.query package.
  *
  * @author Álvaro Carmona
  * @since 27/01/2024

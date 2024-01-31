@@ -6,7 +6,7 @@ import com.bc.ecommerce.infrastructure.rest.spring.pojo.PricesCriteria;
 
 /**
  * Query builder class.
- * In com.bc.ecommerce.domain.business.sql package.
+ * In com.bc.ecommerce.infrastructure.db.springdata.sql package.
  *
  * @author Álvaro Carmona
  * @since 27/01/2024

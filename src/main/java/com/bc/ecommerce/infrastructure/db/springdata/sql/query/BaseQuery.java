@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 
 /**
  * Base query configuration.
- * In com.bc.ecommerce.domain.business.sql.query package.
+ * In com.bc.ecommerce.infrastructure.db.springdata.sql.query package.
  *
  * @author Álvaro Carmona
  * @since 27/01/2024
