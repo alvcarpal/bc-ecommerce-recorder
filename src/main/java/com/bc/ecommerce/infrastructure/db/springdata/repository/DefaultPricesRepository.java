@@ -4,7 +4,8 @@ import com.bc.ecommerce.domain.operational.Prices;
 import com.bc.ecommerce.domain.port.out.PricesRepository;
 import com.bc.ecommerce.infrastructure.db.springdata.mapper.PricesDboMapper;
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesDbo;
-import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.QueryBuilder;
+import com.bc.ecommerce.infrastructure.rest.spring.pojo.PricesCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -33,8 +34,8 @@ public class DefaultPricesRepository implements PricesRepository {
    * {@inheritDoc}
    */
   @Override
-  public Prices pricesProjection(CustomQuery customQuery) {
-    List<PricesDbo> dbos = customQuery.doQuery(entityManager, PricesDbo.class);
+  public Prices pricesProjection(PricesCriteria criteria) {
+    List<PricesDbo> dbos = QueryBuilder.retrieve(criteria).doQuery(entityManager, PricesDbo.class);
     return mapper.map(Objects.nonNull(dbos) ? dbos : new ArrayList<>());
   }
 

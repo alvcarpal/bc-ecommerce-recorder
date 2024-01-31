@@ -72,6 +72,16 @@ Port: In the Hexagonal Architecture, a port serves as an abstract interface defi
 ![](src/main/resources/img/hex_arch.png)
 Image: Hexagonal architecture representation
 
+* Domain Layer: In this layer, the core business logic of the application is housed. Models, business rules, and logic that are independent of technical implementation are defined here. It is the innermost and fundamental layer.
+* Application Layer: This layer acts as an intermediary between the domain layer and the infrastructure layer. It contains specific application logic and orchestrates interactions between domain components to fulfill concrete use cases.
+* Infrastructure Layer: The concrete technical implementation and details of how the application interacts with external resources, such as databases, web services, or user interfaces, reside in this layer. This layer is responsible for translating domain operations into technical operations.
+
+A key principle in hexagonal architecture is that dependencies should always point towards the core, meaning from the periphery towards the domain layer. This helps ensure that the domain remains isolated and that changes in technical implementation do not impact the business logic.
+In this case, this principle is violated by using PricesCriteria since it is passed to the application layer, but it is used as a pass-through, so there is no need to map it to another domain class. If transformations on the criteria are performed in the application layer, then it would be necessary.
+
+![](src/main/resources/img/hex_arch_layers.png)
+Image: 'Should always point towards the core'
+
 There are many benefits to this architecture, but the following should be highlighted:
 
 * Decoupling: The system is divided into layers, and these layers communicate through ports (interfaces) using adapters (implementations), achieving a high level of decoupling between layers.
@@ -167,9 +177,43 @@ Finally, projection interface provides a list of specific columns that should be
 
 ### Custom Query Builder
 
+To address the design of queries, the decision is made to avoid using JPA/Hibernate directly to prevent n+1 queries in case there are multiple tables. It is understood that the data model will evolve in the future, and there is a possibility that the "Brand" table with company information may be imminent.
+
+
+Therefore, the choice is made to create more optimized native queries, which can initially be implemented in a custom interface as follows:
+
+    @Repository
+    public interface JpaPricesRepository extends JpaRepository<Prices, Long> {
+
+        @Query(value = "SELECT p.id, p.brand_id, p.product_id, p.price_list, p.start_date, p.end_date, p.price, p.currency, p.priority "
+                     + "FROM public.prices p "
+                     + "WHERE p.product_id = :productId "
+                     + "AND p.brand_id = :brandId "
+                     + "AND (:currentDate BETWEEN p.start_date AND p.end_date) "
+                     + "ORDER BY priority DESC "
+                     + "LIMIT 1", nativeQuery = true)
+        Prices findPriceByCriteria(@Param("productId") String productId,
+                                   @Param("brandId") String brandId,
+                                   @Param("currentDate") String currentDate);
+
+    }
+
+A decision has been made to go a step further, envisioning a future scenario in which many companies may want to know, at all times, the prices to apply to their products. Therefore, optimization and ease of adapting to new requirements have been prioritized.
+
+With a focus on enhanced scalability in the future, a proposal is set forth for the exercise, the implementation of a query generation engine enabling the creation of any complex query in a native and optimized manner. It is imperative to underscore that, for each case (component), a thorough analysis of the benefit-to-time ratio and estimated load must be conducted. 
+In cases where a system does not foresee heavy loads or frequent changes, the solution suggested with JpaPricesRepository might prove sufficient.
+
 A custom criteria builder is created to build a dynamic SQL query construction engine. This allows defining new filters and queries at any time using the Composite structural pattern, following the SOLID open-close principle.
 
+The advantages are listed below:
+
+* In cases where numerous queries necessitate filters, the reuse of filters for new queries becomes possible, ensuring their functionality has already been established.
+* Avoiding the need for manual manipulation of native queries within the @Query clauses helps mitigate the risk of potential human errors.
+* It becomes easier to comprehend the applied queries, as simply observing the SQL/query construction provides a clear understanding of what is being assembled.
+
 ![](src/main/resources/img/composite_pattern.png)
+
+Image: Composite pattern
 
 1. SqlComposer<T> Class: An abstract class serving as the base component in the Composite pattern.
 It has a sqlBuilder field representing the SQL query builder (DefaultCustomQueryBuilder).

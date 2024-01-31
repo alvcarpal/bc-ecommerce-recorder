@@ -1,6 +1,7 @@
 package com.bc.ecommerce.domain.business.sql;
 
 import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.QueryBuilder;
 import com.bc.ecommerce.infrastructure.rest.spring.pojo.PricesCriteria;
 import com.bc.ecommerce.utils.UnitTest;
 import org.junit.Assert;

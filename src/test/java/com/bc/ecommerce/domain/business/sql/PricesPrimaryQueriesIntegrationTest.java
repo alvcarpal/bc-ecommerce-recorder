@@ -4,6 +4,7 @@ import com.bc.ecommerce.boot.spring.config.EcommerceRecorderSpringBootService;
 import com.bc.ecommerce.infrastructure.db.springdata.model.PricesDbo;
 import com.bc.ecommerce.infrastructure.db.springdata.query.CustomQuery;
 import com.bc.ecommerce.infrastructure.db.springdata.repository.DefaultPricesRepository;
+import com.bc.ecommerce.infrastructure.db.springdata.sql.QueryBuilder;
 import com.bc.ecommerce.infrastructure.rest.spring.pojo.PricesCriteria;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.Assert;
