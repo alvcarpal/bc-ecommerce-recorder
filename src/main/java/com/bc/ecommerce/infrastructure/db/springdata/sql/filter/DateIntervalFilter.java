@@ -6,7 +6,7 @@ import java.time.OffsetDateTime;
 
 /**
  * Date interval filter.
- * In com.bc.ecommerce.domain.business.sql.filter package.
+ * In com.bc.ecommerce.infrastructure.db.springdata.sql.filter package.
  *
  * @author Álvaro Carmona
  * @since 27/01/2024
